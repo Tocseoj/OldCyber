@@ -8,12 +8,16 @@ public class Turret : MonoBehaviour {
 	public float Damage = 10;
 	public float knockback = 1;
 
-	public LayerMask toHit;
+	public LayerMask layersToHit;
 	public Transform player;
+	public Transform prefabBulletTrail;
 
 	float timeToFire;
 
 	void Awake() {
+		if (player == null) {
+			player = (Transform) GameObject.FindGameObjectWithTag ("Player").transform;
+		}
 		timeToFire = Random.value;
 	}
 
@@ -29,11 +33,22 @@ public class Turret : MonoBehaviour {
 
 	void Shoot() {
 		Vector2 firePoint = new Vector2 (transform.position.x, transform.position.y);
-		RaycastHit2D hit = Physics2D.Raycast (firePoint, transform.right, 100f, toHit);
-		Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
+		RaycastHit2D hit = Physics2D.Raycast (firePoint, transform.right, 10f, layersToHit);
+		//Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
 		if (hit.collider != null) {
-			Debug.DrawLine (firePoint, hit.point, Color.red);
-			hit.rigidbody.AddForceAtPosition (transform.right * knockback, hit.point);
+			// BAD! NO CHECK IF RIGHT COLLIDER
+			hit.collider.transform.GetComponent<Player_Movement>().HitTaken (Damage, transform.right*knockback, hit.point);
+
+			Transform clone = Instantiate<Transform> (prefabBulletTrail, null);
+			LineRenderer lr = clone.GetComponent<LineRenderer> ();
+			Vector3[] pos = { transform.position, hit.point };
+			lr.SetPositions(pos);
+			Destroy (clone.gameObject, 0.05f);
+			//Debug.DrawLine (firePoint, hit.point, Color.red);
 		}
+	}
+
+	void OnMouseDown() {
+		GameObject.Find ("GameController").GetComponent<TurretCreate> ().DeleteTurret (this);
 	}
 }
