@@ -17,8 +17,8 @@ public class Player_Movement : MonoBehaviour {
 	}
 	
 	void Update() {
-		float moveX = Input.GetAxis ("Horizontal");
-		float moveY = Input.GetAxis ("Vertical");
+		float moveX = Input.GetAxisRaw ("Horizontal");
+		float moveY = Input.GetAxisRaw ("Vertical");
 		if (!inHitStun) {
 			Vector2 moveTo = new Vector2 (moveX * speedModifier, moveY * speedModifier);
 			rigidBody.MovePosition (rigidBody.position + moveTo * Time.deltaTime);

@@ -47,8 +47,4 @@ public class Turret : MonoBehaviour {
 			//Debug.DrawLine (firePoint, hit.point, Color.red);
 		}
 	}
-
-	void OnMouseDown() {
-		GameObject.Find ("GameController").GetComponent<TurretCreate> ().DeleteTurret (this);
-	}
 }
