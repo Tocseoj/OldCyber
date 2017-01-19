@@ -8,12 +8,16 @@ public class Turret : MonoBehaviour {
 	public float Damage = 10;
 	public float knockback = 1;
 
-	public LayerMask toHit;
+	public LayerMask layersToHit;
 	public Transform player;
+	public Transform prefabBulletTrail;
 
 	float timeToFire;
 
 	void Awake() {
+		if (player == null) {
+			player = (Transform) GameObject.FindGameObjectWithTag ("Player").transform;
+		}
 		timeToFire = Random.value;
 	}
 
@@ -27,13 +31,18 @@ public class Turret : MonoBehaviour {
 		}
 	}
 
+	void Effect() {
+		
+	}
+
 	void Shoot() {
 		Vector2 firePoint = new Vector2 (transform.position.x, transform.position.y);
-		RaycastHit2D hit = Physics2D.Raycast (firePoint, transform.right, 100f, toHit);
+		RaycastHit2D hit = Physics2D.Raycast (firePoint, transform.right, 10f, layersToHit);
 		Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
 		if (hit.collider != null) {
+			Effect ();
 			Debug.DrawLine (firePoint, hit.point, Color.red);
-			hit.rigidbody.AddForceAtPosition (transform.right * knockback, hit.point);
+			hit.collider.transform.GetComponent<Player_Movement>().HitTaken (Damage, transform.right*knockback, hit.point);
 		}
 	}
 }
