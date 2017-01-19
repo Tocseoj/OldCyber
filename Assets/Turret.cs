@@ -31,18 +31,24 @@ public class Turret : MonoBehaviour {
 		}
 	}
 
-	void Effect() {
-		
-	}
-
 	void Shoot() {
 		Vector2 firePoint = new Vector2 (transform.position.x, transform.position.y);
 		RaycastHit2D hit = Physics2D.Raycast (firePoint, transform.right, 10f, layersToHit);
-		Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
+		//Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
 		if (hit.collider != null) {
-			Effect ();
-			Debug.DrawLine (firePoint, hit.point, Color.red);
+			// BAD! NO CHECK IF RIGHT COLLIDER
 			hit.collider.transform.GetComponent<Player_Movement>().HitTaken (Damage, transform.right*knockback, hit.point);
+
+			Transform clone = Instantiate<Transform> (prefabBulletTrail, null);
+			LineRenderer lr = clone.GetComponent<LineRenderer> ();
+			Vector3[] pos = { transform.position, hit.point };
+			lr.SetPositions(pos);
+			Destroy (clone.gameObject, 0.05f);
+			//Debug.DrawLine (firePoint, hit.point, Color.red);
 		}
+	}
+
+	void OnMouseDown() {
+		GameObject.Find ("GameController").GetComponent<TurretCreate> ().DeleteTurret (this);
 	}
 }

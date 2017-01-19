@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour {
 
-	public float speedModifier = 10f;
+	public float speedModifier = 5f;
 	public float hitStun = 0;
 
 	private Rigidbody2D rigidBody;
@@ -36,5 +36,15 @@ public class Player_Movement : MonoBehaviour {
 		inHitStun = true;
 		yield return new WaitForSeconds(hitStun);
 		inHitStun = false;
+	}
+
+	public void SetSpeedModifier(float value)
+	{  
+		speedModifier = value;
+	}
+
+	public void SetHitStun(float value)
+	{  
+		hitStun = value;
 	}
 }
