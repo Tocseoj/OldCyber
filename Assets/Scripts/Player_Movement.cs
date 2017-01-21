@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TeamUtility.IO;
 
 public class Player_Movement : MonoBehaviour {
 
@@ -25,31 +26,38 @@ public class Player_Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown ("Up"))
+		if (InputManager.GetButtonDown ("Up"))
 			dir.AddLast (0);
-		if (Input.GetButtonDown ("Down"))
+		if (InputManager.GetButtonDown ("Down"))
 			dir.AddLast (1);
-		if (Input.GetButtonDown ("Left"))
+		if (InputManager.GetButtonDown ("Left"))
 			dir.AddLast (2);
-		if (Input.GetButtonDown ("Right"))
+		if (InputManager.GetButtonDown ("Right"))
 			dir.AddLast (3);
 
-		if (Input.GetButtonUp ("Up"))
+		if (InputManager.GetButtonUp ("Up"))
 			dir.Remove (0);
-		if (Input.GetButtonUp ("Down"))
+		if (InputManager.GetButtonUp ("Down"))
 			dir.Remove (1);
-		if (Input.GetButtonUp ("Left"))
+		if (InputManager.GetButtonUp ("Left"))
 			dir.Remove (2);
-		if (Input.GetButtonUp ("Right"))
+		if (InputManager.GetButtonUp ("Right"))
 			dir.Remove (3);
 
-		if (Input.GetButtonDown ("Cancel")) {
+		//if (InputManager.GetButtonDown ("Cancel")) {
+		//	dir.Clear ();
+		//	dir.AddLast (-1);
+		//}
+
+		BroadcastMessage ("RecieveDirection", dir.Last.Value);
+	}
+
+	void OnApplicationFocus( bool hasFocus )
+	{
+		if (!hasFocus) {
 			dir.Clear ();
 			dir.AddLast (-1);
 		}
-
-		BroadcastMessage ("RecieveDirection", dir.Last.Value);
-		GameController.PlayerStats.dir = dir.Last.Value;
 	}
 
 	void FixedUpdate() {
