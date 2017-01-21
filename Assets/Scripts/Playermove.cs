@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Movement : MonoBehaviour {
+public class Playermove : MonoBehaviour {
 
-	public float speedModifier = 5f;
+	public int speedModifier = 5;
 	public float hitStun = 0;
 
 	private Rigidbody2D rigidBody;
 	private bool inHitStun = false;
+	private bool lastMoveX = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -16,13 +17,21 @@ public class Player_Movement : MonoBehaviour {
 		if (!rigidBody) Debug.Log("rigidBody not defined!");
 	}
 	
-	void Update() {
-		float moveX = Input.GetAxisRaw ("Horizontal");
-		float moveY = Input.GetAxisRaw ("Vertical");
+	void FixedUpdate() {
+		int moveX = (int) Input.GetAxis ("Horizontal");
+		int moveY = (int) Input.GetAxis ("Vertical");
+
+
 		if (!inHitStun) {
-			Vector2 moveTo = new Vector2 (moveX * speedModifier, moveY * speedModifier);
-			rigidBody.MovePosition (rigidBody.position + moveTo * Time.deltaTime);
-			//rigidBody.AddForce(new Vector2(moveX * speedModifier * Time.fixedDeltaTime, moveY * speedModifier * Time.fixedDeltaTime));
+			Vector2 moveTo = Vector2.zero;
+			if ((moveX != 0) && !(lastMoveX && (moveY != 0))) {
+				moveTo = new Vector2 (moveX * speedModifier, 0);
+				lastMoveX = true;
+			} else if (moveY != 0) {
+				moveTo = new Vector2 (0, moveY * speedModifier);
+				lastMoveX = false;
+			}
+			rigidBody.MovePosition (rigidBody.position + moveTo);
 		}
 	}
 
@@ -38,7 +47,7 @@ public class Player_Movement : MonoBehaviour {
 		inHitStun = false;
 	}
 
-	public void SetSpeedModifier(float value)
+	public void SetSpeedModifier(int value)
 	{  
 		speedModifier = value;
 	}

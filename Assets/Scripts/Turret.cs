@@ -37,7 +37,7 @@ public class Turret : MonoBehaviour {
 		//Debug.DrawRay (firePoint, transform.right * 100f, Color.yellow);
 		if (hit.collider != null) {
 			// BAD! NO CHECK IF RIGHT COLLIDER
-			hit.collider.transform.GetComponent<Player_Movement>().HitTaken (Damage, transform.right*knockback, hit.point);
+			//hit.collider.transform.GetComponent<Player_Movement>().HitTaken (Damage, transform.right*knockback, hit.point);
 
 			Transform clone = Instantiate<Transform> (prefabBulletTrail, null);
 			LineRenderer lr = clone.GetComponent<LineRenderer> ();
