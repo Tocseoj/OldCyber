@@ -10,10 +10,11 @@ public class Player_Animation : MonoBehaviour {
 
 	// Private var
 	bool weaponOut = false;
+	int direction;
 
 	// References
 	Animator anim;
-	Player_Movement pm;
+
 	// Use this for initialization
 	void Awake () {
 		if (weaponAnimator == null) {
@@ -29,24 +30,25 @@ public class Player_Animation : MonoBehaviour {
 			Debug.LogError ("No Animator found on " + gameObject.name);
 			this.enabled = false;
 		}
-		pm = GetComponent<Player_Movement> ();
-		if (pm == null) {
-			Debug.LogError ("No Player_Movement Script found on " + gameObject.name);
-			this.enabled = false;
-		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		anim.SetInteger ("direction", pm.GetDirection ());
+		anim.SetInteger ("direction", direction);
 		if (Input.GetButtonDown ("Fire2")) {
 			if (weaponOut) {
 				anim.runtimeAnimatorController = idleAnimator;
 				weaponOut = false;
+				SendMessage ("WeaponOut", weaponOut);
 			} else {
 				anim.runtimeAnimatorController = weaponAnimator;
 				weaponOut = true;
+				SendMessage ("WeaponOut", weaponOut);
 			}
 		}
+	}
+
+	void RecieveDirection (int value) {
+		direction = value;
 	}
 }
