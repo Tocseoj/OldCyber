@@ -42,6 +42,8 @@ public class Player_Movement : MonoBehaviour {
 			dir.Remove (2);
 		if (Input.GetButtonUp ("Right"))
 			dir.Remove (3);
+
+		BroadcastMessage ("RecieveDirection", dir.Last.Value);
 	}
 
 	void FixedUpdate() {
@@ -62,9 +64,5 @@ public class Player_Movement : MonoBehaviour {
 		default:
 			break;
 		}
-	}
-
-	public int GetDirection() {
-		return dir.Last.Value;
 	}
 }
