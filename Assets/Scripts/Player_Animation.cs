@@ -30,6 +30,11 @@ public class Player_Animation : MonoBehaviour {
 			Debug.LogError ("No Animator found on " + gameObject.name);
 			this.enabled = false;
 		}
+		if (GameController.PlayerStats.weaponOut) {
+			anim.runtimeAnimatorController = idleAnimator;
+		} else {
+			anim.runtimeAnimatorController = weaponAnimator;
+		}
 	}
 	
 	// Update is called once per frame
@@ -45,6 +50,7 @@ public class Player_Animation : MonoBehaviour {
 				weaponOut = true;
 				SendMessage ("WeaponOut", weaponOut);
 			}
+			GameController.PlayerStats.weaponOut = weaponOut;
 		}
 	}
 

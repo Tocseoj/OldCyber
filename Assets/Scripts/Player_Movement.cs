@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour {
 
 	// Public Var
-	public int speedModifier = 1;
+	int speedModifier = 1;
 
 	// Private Var
 	LinkedList<int> dir = new LinkedList<int>();
@@ -43,7 +43,13 @@ public class Player_Movement : MonoBehaviour {
 		if (Input.GetButtonUp ("Right"))
 			dir.Remove (3);
 
+		if (Input.GetButtonDown ("Cancel")) {
+			dir.Clear ();
+			dir.AddLast (-1);
+		}
+
 		BroadcastMessage ("RecieveDirection", dir.Last.Value);
+		GameController.PlayerStats.dir = dir.Last.Value;
 	}
 
 	void FixedUpdate() {
