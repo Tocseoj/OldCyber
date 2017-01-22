@@ -33,4 +33,76 @@ public class Player : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public int Health_current {
+		get {
+			return this.health_current;
+		}
+		set {
+			health_current = value;
+		}
+	}
+
+	public int Health_total {
+		get {
+			return this.health_total;
+		}
+		set {
+			health_total = value;
+		}
+	}
+
+	public int Energy {
+		get {
+			return this.energy;
+		}
+		set {
+			energy = value;
+		}
+	}
+
+	public int MaxEnergy {
+		get {
+			return this.maxEnergy;
+		}
+		set {
+			maxEnergy = value;
+		}
+	}
+
+	public int HeartRate {
+		get {
+			return this.heartRate;
+		}
+		set {
+			heartRate = value;
+		}
+	}
+
+	public int Money {
+		get {
+			return this.money;
+		}
+		set {
+			money = value;
+		}
+	}
+
+	public int ItemCount {
+		get {
+			return this.itemCount;
+		}
+		set {
+			itemCount = value;
+		}
+	}
+
+	public int Batteries {
+		get {
+			return this.batteries;
+		}
+		set {
+			batteries = value;
+		}
+	}
 }
