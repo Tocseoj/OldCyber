@@ -8,23 +8,31 @@ public class Player_Shooting : MonoBehaviour {
 
 	bool weaponOut = false;
 	int direction = 1;
-	
+	bool accurate;
+
+	void Awake() {
+		if (prefabBullet == null) {
+			Debug.LogError ("No Bullet Prefab found on " + gameObject.name);
+			this.enabled = false;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
-		if (weaponOut && Input.GetButtonDown ("Fire1")) {
+		if (weaponOut && TeamUtility.IO.InputManager.GetButtonDown ("Fire")) {
 			Transform clone = Instantiate<Transform> (prefabBullet, transform.position, transform.rotation);
 			switch (direction) {
 			case 0:
-				clone.GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 10000);
+				clone.Rotate (new Vector3 (0, 0, 90 + Random.Range(-15, 15)));
 				break;
 			case 1:
-				clone.GetComponent<Rigidbody2D> ().AddForce (Vector2.up * -10000);
+				clone.Rotate (new Vector3 (0, 0, 270 + Random.Range(-15, 15)));
 				break;
 			case 2:
-				clone.GetComponent<Rigidbody2D> ().AddForce (Vector2.right * -10000);
+				clone.Rotate (new Vector3 (0, 0, 180 + Random.Range(-15, 15)));
 				break;
 			case 3:
-				clone.GetComponent<Rigidbody2D> ().AddForce (Vector2.right * 10000);
+				clone.Rotate (new Vector3 (0, 0, 0 + Random.Range(-15, 15)));
 				break;
 			default:
 				break;
@@ -40,6 +48,9 @@ public class Player_Shooting : MonoBehaviour {
 	void RecieveDirection (int value) {
 		if (value != -1) {
 			direction = value;
+			accurate = false;
+		} else {
+			accurate = true;
 		}
 	}
 }

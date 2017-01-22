@@ -10,7 +10,7 @@ public class Player_Animation : MonoBehaviour {
 
 	// Private var
 	bool weaponOut = false;
-	int direction;
+	int direction = 1;
 
 	// References
 	Animator anim;
@@ -30,17 +30,12 @@ public class Player_Animation : MonoBehaviour {
 			Debug.LogError ("No Animator found on " + gameObject.name);
 			this.enabled = false;
 		}
-		if (GameController.PlayerStats.weaponOut) {
-			anim.runtimeAnimatorController = idleAnimator;
-		} else {
-			anim.runtimeAnimatorController = weaponAnimator;
-		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		anim.SetInteger ("direction", direction);
-		if (Input.GetButtonDown ("Fire2")) {
+		if (TeamUtility.IO.InputManager.GetButtonDown ("Swap")) {
 			if (weaponOut) {
 				anim.runtimeAnimatorController = idleAnimator;
 				weaponOut = false;
@@ -50,7 +45,6 @@ public class Player_Animation : MonoBehaviour {
 				weaponOut = true;
 				SendMessage ("WeaponOut", weaponOut);
 			}
-			GameController.PlayerStats.weaponOut = weaponOut;
 		}
 	}
 
