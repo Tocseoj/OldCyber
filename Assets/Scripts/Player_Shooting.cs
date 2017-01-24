@@ -8,7 +8,7 @@ public class Player_Shooting : MonoBehaviour {
 
 	bool weaponOut = false;
 	int direction = 1;
-	bool accurate;
+	int accuracy = 1;
 
 	void Awake() {
 		if (prefabBullet == null) {
@@ -23,16 +23,16 @@ public class Player_Shooting : MonoBehaviour {
 			Transform clone = Instantiate<Transform> (prefabBullet, transform.position, transform.rotation);
 			switch (direction) {
 			case 0:
-				clone.Rotate (new Vector3 (0, 0, 90 + Random.Range(-15, 15)));
+				clone.Rotate (new Vector3 (0, 0, 90 + Random.Range(-accuracy, accuracy)));
 				break;
 			case 1:
-				clone.Rotate (new Vector3 (0, 0, 270 + Random.Range(-15, 15)));
+				clone.Rotate (new Vector3 (0, 0, 270 + Random.Range(-accuracy, accuracy)));
 				break;
 			case 2:
-				clone.Rotate (new Vector3 (0, 0, 180 + Random.Range(-15, 15)));
+				clone.Rotate (new Vector3 (0, 0, 180 + Random.Range(-accuracy, accuracy)));
 				break;
 			case 3:
-				clone.Rotate (new Vector3 (0, 0, 0 + Random.Range(-15, 15)));
+				clone.Rotate (new Vector3 (0, 0, 0 + Random.Range(-accuracy, accuracy)));
 				break;
 			default:
 				break;
@@ -48,9 +48,9 @@ public class Player_Shooting : MonoBehaviour {
 	void RecieveDirection (int value) {
 		if (value != -1) {
 			direction = value;
-			accurate = false;
+			accuracy = 5;
 		} else {
-			accurate = true;
+			accuracy = 1;
 		}
 	}
 }
