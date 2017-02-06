@@ -66,12 +66,20 @@ public class Player : MonoBehaviour {
 		if (InputManager.GetButtonUp ("Down"))
 			dir.Remove (3);
 
-		if (InputManager.GetButtonDown ("Fire")) {
-			InputManager.print ("Fire!");
-			anim.SetTrigger ("pickup");
+		if (anim.GetBool("pickup"))
+			return;
+
+		if (dir.Last.Value == -1) {
+			anim.SetBool ("moving", false);
+		} else {
+			anim.SetBool ("moving", true);
+			anim.SetInteger ("direction", dir.Last.Value);
 		}
 
-		anim.SetInteger("direction", dir.Last.Value);
+		if (InputManager.GetButtonDown ("Fire")) {
+			anim.SetBool ("moving", false);
+			anim.SetBool ("pickup", true);
+		}
 	}
 	void OnApplicationFocus( bool hasFocus )
 	{
@@ -81,6 +89,9 @@ public class Player : MonoBehaviour {
 		} 
 	}
 	void FixedUpdate() {
+		if (!anim.GetBool ("moving"))
+			return;
+
 		if (dir.Last.Value == 0)
 			rb.MovePosition (new Vector2 (rb.position.x + speed, rb.position.y));
 		if (dir.Last.Value == 1)
