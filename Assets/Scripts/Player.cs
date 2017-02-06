@@ -92,9 +92,11 @@ public class Player : MonoBehaviour {
 			dir.AddLast (-1);
 		} 
 	}
+
 	void FixedUpdate() {
-		if (!anim.GetBool ("moving"))
+		if (!anim.GetBool ("moving")) {
 			return;
+		}
 
 		if (dir.Last.Value == 0)
 			rb.MovePosition (new Vector2 (rb.position.x + speed, rb.position.y));
@@ -105,7 +107,6 @@ public class Player : MonoBehaviour {
 		if (dir.Last.Value == 3)
 			rb.MovePosition (new Vector2 (rb.position.x, rb.position.y - speed));
 	}
-
 
 	// ******************** //
 
