@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : StateMachineBehaviour {
+public class ActionBoolClear : StateMachineBehaviour {
+
+	public string action = "pickup";
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	//override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -16,7 +18,7 @@ public class Pickup : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		animator.SetBool ("pickup", false);
+		animator.SetBool (action, false);
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

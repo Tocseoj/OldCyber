@@ -80,6 +80,10 @@ public class Player : MonoBehaviour {
 			anim.SetBool ("moving", false);
 			anim.SetBool ("pickup", true);
 		}
+		if (InputManager.GetKey (KeyCode.E)) {
+			anim.SetBool ("moving", false);
+			anim.SetBool ("search", true);
+		}
 	}
 	void OnApplicationFocus( bool hasFocus )
 	{
