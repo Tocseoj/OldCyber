@@ -1,41 +1,41 @@
 fileFormatVersion: 2
-guid: ce8c53f9abcd34168ab946bc00dc6db2
-timeCreated: 1485796288
+guid: 37ccfa21b62f149f183199a8cfe6df39
+timeCreated: 1485798320
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: man_walk_0
-    21300002: man_walk_1
-    21300004: man_walk_2
-    21300006: man_walk_3
-    21300008: man_walk_4
-    21300010: man_walk_5
-    21300012: man_walk_6
-    21300014: man_walk_7
-    21300016: man_walk_8
-    21300018: man_walk_9
-    21300020: man_walk_10
-    21300022: man_walk_11
-    21300024: man_walk_12
-    21300026: man_walk_13
-    21300028: man_walk_14
-    21300030: man_walk_15
-    21300032: man_walk_16
-    21300034: man_walk_17
-    21300036: man_walk_18
-    21300038: man_walk_19
-    21300040: man_walk_20
-    21300042: man_walk_21
-    21300044: man_walk_22
-    21300046: man_walk_23
-    21300048: man_walk_24
-    21300050: man_walk_25
-    21300052: man_walk_26
-    21300054: man_walk_27
-    21300056: man_walk_28
-    21300058: man_walk_29
-    21300060: man_walk_30
-    21300062: man_walk_31
+    21300000: pick_up_0
+    21300002: pick_up_1
+    21300004: pick_up_2
+    21300006: pick_up_3
+    21300008: pick_up_4
+    21300010: pick_up_5
+    21300012: pick_up_6
+    21300014: pick_up_7
+    21300016: pick_up_8
+    21300018: pick_up_9
+    21300020: pick_up_10
+    21300022: pick_up_11
+    21300024: pick_up_12
+    21300026: pick_up_13
+    21300028: pick_up_14
+    21300030: pick_up_15
+    21300032: pick_up_16
+    21300034: pick_up_17
+    21300036: pick_up_18
+    21300038: pick_up_19
+    21300040: pick_up_20
+    21300042: pick_up_21
+    21300044: pick_up_22
+    21300046: pick_up_23
+    21300048: pick_up_24
+    21300050: pick_up_25
+    21300052: pick_up_26
+    21300054: pick_up_27
+    21300056: pick_up_28
+    21300058: pick_up_29
+    21300060: pick_up_30
+    21300062: pick_up_31
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -102,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: man_walk_0
+      name: pick_up_0
       rect:
         serializedVersion: 2
         x: 1
@@ -115,7 +115,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_1
+      name: pick_up_1
       rect:
         serializedVersion: 2
         x: 23
@@ -128,7 +128,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_2
+      name: pick_up_2
       rect:
         serializedVersion: 2
         x: 45
@@ -141,7 +141,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_3
+      name: pick_up_3
       rect:
         serializedVersion: 2
         x: 67
@@ -154,7 +154,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_4
+      name: pick_up_4
       rect:
         serializedVersion: 2
         x: 89
@@ -167,7 +167,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_5
+      name: pick_up_5
       rect:
         serializedVersion: 2
         x: 111
@@ -180,7 +180,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_6
+      name: pick_up_6
       rect:
         serializedVersion: 2
         x: 133
@@ -193,7 +193,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_7
+      name: pick_up_7
       rect:
         serializedVersion: 2
         x: 155
@@ -206,7 +206,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_8
+      name: pick_up_8
       rect:
         serializedVersion: 2
         x: 1
@@ -219,7 +219,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_9
+      name: pick_up_9
       rect:
         serializedVersion: 2
         x: 23
@@ -232,7 +232,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_10
+      name: pick_up_10
       rect:
         serializedVersion: 2
         x: 45
@@ -245,7 +245,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_11
+      name: pick_up_11
       rect:
         serializedVersion: 2
         x: 67
@@ -258,7 +258,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_12
+      name: pick_up_12
       rect:
         serializedVersion: 2
         x: 89
@@ -271,7 +271,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_13
+      name: pick_up_13
       rect:
         serializedVersion: 2
         x: 111
@@ -284,7 +284,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_14
+      name: pick_up_14
       rect:
         serializedVersion: 2
         x: 133
@@ -297,7 +297,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_15
+      name: pick_up_15
       rect:
         serializedVersion: 2
         x: 155
@@ -310,7 +310,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_16
+      name: pick_up_16
       rect:
         serializedVersion: 2
         x: 1
@@ -323,7 +323,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_17
+      name: pick_up_17
       rect:
         serializedVersion: 2
         x: 23
@@ -336,7 +336,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_18
+      name: pick_up_18
       rect:
         serializedVersion: 2
         x: 45
@@ -349,7 +349,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_19
+      name: pick_up_19
       rect:
         serializedVersion: 2
         x: 67
@@ -362,7 +362,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_20
+      name: pick_up_20
       rect:
         serializedVersion: 2
         x: 89
@@ -375,7 +375,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_21
+      name: pick_up_21
       rect:
         serializedVersion: 2
         x: 111
@@ -388,7 +388,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_22
+      name: pick_up_22
       rect:
         serializedVersion: 2
         x: 133
@@ -401,7 +401,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_23
+      name: pick_up_23
       rect:
         serializedVersion: 2
         x: 155
@@ -414,7 +414,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_24
+      name: pick_up_24
       rect:
         serializedVersion: 2
         x: 1
@@ -427,7 +427,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_25
+      name: pick_up_25
       rect:
         serializedVersion: 2
         x: 23
@@ -440,7 +440,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_26
+      name: pick_up_26
       rect:
         serializedVersion: 2
         x: 45
@@ -453,7 +453,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_27
+      name: pick_up_27
       rect:
         serializedVersion: 2
         x: 67
@@ -466,7 +466,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_28
+      name: pick_up_28
       rect:
         serializedVersion: 2
         x: 89
@@ -479,7 +479,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_29
+      name: pick_up_29
       rect:
         serializedVersion: 2
         x: 111
@@ -492,7 +492,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_30
+      name: pick_up_30
       rect:
         serializedVersion: 2
         x: 133
@@ -505,7 +505,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: man_walk_31
+      name: pick_up_31
       rect:
         serializedVersion: 2
         x: 155

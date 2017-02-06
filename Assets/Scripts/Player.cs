@@ -68,9 +68,9 @@ public class Player : MonoBehaviour {
 
 		if (InputManager.GetButtonDown ("Fire")) {
 			InputManager.print ("Fire!");
+			anim.SetTrigger ("pickup");
 		}
 
-		//if (anim.GetInteger("direction") != dir.Last.Value)
 		anim.SetInteger("direction", dir.Last.Value);
 	}
 	void OnApplicationFocus( bool hasFocus )
