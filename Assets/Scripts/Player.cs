@@ -21,11 +21,18 @@ public class Player : MonoBehaviour {
 
 	[SerializeField]
 	int money = 0;
-	int itemCount = 0;
 	// Item Array
+	[SerializeField]
+	List<string> items = new List<string>() { "Coins", "Energy_cell" };
+	[SerializeField]
+	List<int> itemCount = new List<int>();
 	[SerializeField]
 	int batteries = 0;
 	// Weapons
+
+	[SerializeField]
+	float pickupRadius = 10f;
+	public LayerMask itemLayerMask;
 
 	LinkedList<int> dir = new LinkedList<int>();
 	Rigidbody2D rb;
@@ -66,7 +73,7 @@ public class Player : MonoBehaviour {
 		if (InputManager.GetButtonUp ("Down"))
 			dir.Remove (3);
 
-		if (anim.GetBool("pickup"))
+		if (anim.GetBool("pickup") || anim.GetBool("search"))
 			return;
 
 		if (dir.Last.Value == -1) {
@@ -76,11 +83,11 @@ public class Player : MonoBehaviour {
 			anim.SetInteger ("direction", dir.Last.Value);
 		}
 
-		if (InputManager.GetButtonDown ("Fire")) {
+		if (InputManager.GetButtonDown ("Pickup")) {
 			anim.SetBool ("moving", false);
 			anim.SetBool ("pickup", true);
 		}
-		if (InputManager.GetKey (KeyCode.E)) {
+		if (InputManager.GetButtonDown ("Search")) {
 			anim.SetBool ("moving", false);
 			anim.SetBool ("search", true);
 		}
@@ -106,6 +113,27 @@ public class Player : MonoBehaviour {
 			rb.MovePosition (new Vector2 (rb.position.x - speed, rb.position.y));
 		if (dir.Last.Value == 3)
 			rb.MovePosition (new Vector2 (rb.position.x, rb.position.y - speed));
+	}
+
+	void Finishedpickup() {
+		Collider2D[] nearItems = Physics2D.OverlapCircleAll (new Vector2(transform.position.x, transform.position.y - 4), pickupRadius, itemLayerMask);
+		foreach (Collider2D coll in nearItems) {
+			int index = items.IndexOf (coll.tag);
+			if (index == -1) {
+				items.Add (coll.tag);
+				if (itemCount.Count < items.Count)
+					itemCount.Insert (items.Count - 1, 1);
+				else
+					itemCount [items.Count - 1] += 1;
+			} else {
+				itemCount [index] += 1;
+			}
+			Destroy (coll.gameObject);
+		}
+	}
+
+	void Finishedsearch() {
+		
 	}
 
 	// ******************** //
@@ -161,15 +189,6 @@ public class Player : MonoBehaviour {
 		}
 		set {
 			money = value;
-		}
-	}
-
-	public int ItemCount {
-		get {
-			return this.itemCount;
-		}
-		set {
-			itemCount = value;
 		}
 	}
 
