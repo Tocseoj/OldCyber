@@ -22,10 +22,9 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	int money = 0;
 	// Item Array
-	[SerializeField]
-	List<string> items = new List<string>() { "Coins", "Energy_cell" };
-	[SerializeField]
-	List<int> itemCount = new List<int>();
+	public List<string> items = new List<string>();
+	public List<int> itemCount = new List<int>();
+	public List<string> data = new List<string>();
 	[SerializeField]
 	int batteries = 0;
 	// Weapons
@@ -37,6 +36,7 @@ public class Player : MonoBehaviour {
 	LinkedList<int> dir = new LinkedList<int>();
 	Rigidbody2D rb;
 	Animator anim;
+	GameController gameController;
 	// Use this for initialization
 	void Awake () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -49,6 +49,11 @@ public class Player : MonoBehaviour {
 			Debug.LogError ("No Animator found on " + gameObject.name);
 			this.enabled = false;
 		}
+		GameObject controller = GameObject.FindWithTag ("GameController");
+		if (controller == null) {
+			Debug.LogError ("No GameController found");
+		}
+		gameController = controller.GetComponent<GameController> ();
 
 		dir.AddLast (-1);
 	}
@@ -118,17 +123,24 @@ public class Player : MonoBehaviour {
 	void Finishedpickup() {
 		Collider2D[] nearItems = Physics2D.OverlapCircleAll (new Vector2(transform.position.x, transform.position.y - 4), pickupRadius, itemLayerMask);
 		foreach (Collider2D coll in nearItems) {
-			int index = items.IndexOf (coll.tag);
-			if (index == -1) {
-				items.Add (coll.tag);
-				if (itemCount.Count < items.Count)
-					itemCount.Insert (items.Count - 1, 1);
-				else
-					itemCount [items.Count - 1] += 1;
+			if (coll.tag.StartsWith ("Book")) {
+				data.Add (coll.tag);
+				Destroy (coll.gameObject);
+				gameController.StartCoroutine ("UpdateData");
 			} else {
-				itemCount [index] += 1;
+				int index = items.IndexOf (coll.tag);
+				if (index == -1) {
+					items.Add (coll.tag);
+					if (itemCount.Count < items.Count)
+						itemCount.AddRange (new int[items.Count - itemCount.Count]);
+					;
+					itemCount [items.Count - 1] += 1;
+				} else {
+					itemCount [index] += 1;
+				}
+				Destroy (coll.gameObject);
+				gameController.StartCoroutine ("UpdateInventory");
 			}
-			Destroy (coll.gameObject);
 		}
 	}
 
