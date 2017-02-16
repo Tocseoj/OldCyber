@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class IdleAnimController : StateMachineBehaviour {
 
-	public int numberOfIdleAnims = 2;
+	public int numberOfIdleAnims = 0;
 	public float minTime = 11f;
 	public float maxTime = 27f;
 	float timeSinceStopped;
 
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		animator.SetInteger ("idle", 0);
-		timeSinceStopped = Time.time;
+			animator.SetInteger ("idle", 0);
+			timeSinceStopped = Time.time;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

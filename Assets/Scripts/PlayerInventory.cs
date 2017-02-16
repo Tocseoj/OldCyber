@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TeamUtility.IO;
 
 [RequireComponent (typeof (Animator))]
 public class PlayerInventory : MonoBehaviour {
+
+	public Transform firepoint;
+	public Bullet prefabBullet;
+
+	public float timeToShoot = 1f;
+	float lastShot = 0f;
 
 	public List<Item> playerItems;
 	public List<Item> playerData;
@@ -20,12 +27,28 @@ public class PlayerInventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (TeamUtility.IO.InputManager.GetKey (KeyCode.Space)) {
+		if (InputManager.GetButtonDown ("Pickup")) {
 			GetComponent<Animator> ().SetBool ("pickup", true);
 		}
-		if (TeamUtility.IO.InputManager.GetKey (KeyCode.E)) {
+		if (InputManager.GetButtonDown ("Search")) {
 			GetComponent<Animator> ().SetBool ("search", true);
 		}
+		if (InputManager.GetButton ("Fire")) {
+			if (Time.time - lastShot >= timeToShoot) {
+				StartCoroutine ("Shoot");
+				lastShot = Time.time;
+			}
+		}
+	}
+
+	IEnumerator Shoot() {
+		SpriteRenderer spr = firepoint.FindChild("MuzzleFlash_" + GetComponent<Animator>().GetInteger("direction")).GetComponent<SpriteRenderer>();
+		spr.gameObject.SetActive(true);
+		Bullet clone = Instantiate<Bullet> (prefabBullet, spr.transform.position, spr.transform.rotation);
+		clone.transform.Translate (new Vector3(16, 1, 0), Space.Self);
+		clone.speed = 10;
+		yield return new WaitForSeconds(0.1f);
+		spr.gameObject.SetActive(false);
 	}
 
 	void Finishedpickup() {
