@@ -2,35 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (SpriteRenderer))]
-public class Item : MonoBehaviour {
+[System.Serializable]
+public class Item {
 
-	public enum itemType {Antidote, Bandage, Book_blue, Book_brown, Book_green, Book_red, Booster_shot, Coins, Detoxin, Duct_tape, 
+	public enum itemType {Ammo, Antidote, Bandage, Book_blue, Book_brown, Book_green, Book_red, Booster_shot, Coins, Detoxin, Duct_tape, 
 		Energy_cell, Envelope_closed, Envelope_open, Envelope_sealed, Envelope_unsealed, Medkit};
 	
 	public itemType type = itemType.Antidote;
-	[SerializeField] int spriteVariant = 1;
-	[SerializeField] [Tooltip("Reference Value ONLY")] int spriteVariantMax = 1;
+	public int spriteVariant = 1;
+	[Tooltip("Reference Value ONLY")] public int spriteVariantMax = 1;
 
 	[Header("Attributes")]
 	public string itemName = "Antidote";
-	public int quantity;
-	public bool isData;
+	public int quantity = 1;
+	public bool isData = false;
 
-	void OnValidate() {
-		GameController gc = GameObject.FindWithTag ("GameController").GetComponent<GameController>();
-		SpriteRenderer spr = gameObject.GetComponent<SpriteRenderer> ();
-		Sprite[] sprs = gc.itemSprites [(int)type].sprites;
-		spriteVariantMax = sprs.Length;
-		if (sprs.Length > 0) {
-			spriteVariant = Mathf.Clamp (spriteVariant, 1, spriteVariantMax);
-			spr.sprite = sprs [spriteVariant - 1];
-		}
-	}
-
- 	void Awake() {
-		BoxCollider2D bc = gameObject.AddComponent<BoxCollider2D> ();
-		bc.isTrigger = true;
+	public Item Copy() {
+		Item item = new Item ();
+		item.itemName = itemName;
+		item.quantity = quantity;
+		item.isData = isData;
+		item.type = type;
+		item.spriteVariant = spriteVariant;
+		item.spriteVariantMax = spriteVariantMax;
+		return item;
 	}
 
 	public int ChangeHealth(int value) {

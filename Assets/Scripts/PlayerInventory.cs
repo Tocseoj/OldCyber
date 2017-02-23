@@ -6,12 +6,6 @@ using TeamUtility.IO;
 [RequireComponent (typeof (Animator))]
 public class PlayerInventory : MonoBehaviour {
 
-	public Transform firepoint;
-	public Bullet prefabBullet;
-
-	public float timeToShoot = 1f;
-	float lastShot = 0f;
-
 	public List<Item> playerItems;
 	public List<Item> playerData;
 
@@ -19,48 +13,52 @@ public class PlayerInventory : MonoBehaviour {
 	public LayerMask pickupMask;
 
 	UIController uiGameController;
+	Animator animator;
 
 	// Use this for initialization
 	void Awake () {
-		uiGameController = GameObject.FindWithTag ("GameController").GetComponent<UIController> ();
+		uiGameController = GameObject.FindObjectOfType<UIController> ();
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (InputManager.GetButtonDown ("Pickup")) {
-			GetComponent<Animator> ().SetBool ("pickup", true);
-		}
-		if (InputManager.GetButtonDown ("Search")) {
-			GetComponent<Animator> ().SetBool ("search", true);
-		}
-		if (InputManager.GetButton ("Fire")) {
-			if (Time.time - lastShot >= timeToShoot) {
-				StartCoroutine ("Shoot");
-				lastShot = Time.time;
+		if (!animator.GetBool ("pickup") && !animator.GetBool ("search")) {
+			if (InputManager.GetButtonDown ("Pickup")) {
+				animator.SetBool ("pickup", true);
+			}
+			if (InputManager.GetButtonDown ("Search")) {
+				animator.SetBool ("search", true);
 			}
 		}
 	}
 
-	IEnumerator Shoot() {
-		SpriteRenderer spr = firepoint.FindChild("MuzzleFlash_" + GetComponent<Animator>().GetInteger("direction")).GetComponent<SpriteRenderer>();
-		spr.gameObject.SetActive(true);
-		Bullet clone = Instantiate<Bullet> (prefabBullet, spr.transform.position, spr.transform.rotation);
-		clone.transform.Translate (new Vector3(16, 1, 0), Space.Self);
-		clone.speed = 10;
-		yield return new WaitForSeconds(0.1f);
-		spr.gameObject.SetActive(false);
+	public bool UseItem(Item.itemType type) {
+		Item item = playerItems.Find (x => x.type == type);
+		if (item != null) {
+			if (--item.quantity <= 0)
+				playerItems.Remove (item);
+			uiGameController.StartCoroutine ("UpdateInventory");
+			return true;
+		} else
+			return false;
 	}
 
 	void Finishedpickup() {
 		Collider2D[] colliders = Physics2D.OverlapCircleAll (transform.position, pickupRadius, pickupMask);
 		foreach (Collider2D coll in colliders) {
-			Item item = coll.GetComponent<Item> ();
-			if (item) {
-				if (item.isData)
-					playerData.Add (item);
-				else
-					playerItems.Add (item);
-				Destroy (item.gameObject);
+			ItemComponent ic = coll.GetComponent<ItemComponent> ();
+			if (ic) {
+				if (ic.item.isData)
+					playerData.Add (ic.item);
+				else {
+					Item current = playerItems.Find (x => x.type == ic.item.type);
+					if (current != null)
+						current.quantity += ic.item.quantity;
+					else
+						playerItems.Add (ic.item);
+				}
+				Destroy (ic.gameObject);
 			}
 		}
 		uiGameController.StartCoroutine ("UpdateInventory");

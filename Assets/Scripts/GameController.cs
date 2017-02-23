@@ -14,9 +14,10 @@ public class GameController : MonoBehaviour
 	}
 
 	// Keep GameController object prevalent through all scenes
-	void Start ()
+	static GameController _instance;
+	void Awake ()
 	{
-		DontDestroyOnLoad (gameObject);
+		DontDestroyOnLoad (this);
 	}
 
 	// Check for debugging input

@@ -3,6 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TeamUtility.IO;
 
+[System.Serializable]
+public class Axes {
+	public KeyCode Fire;
+	public KeyCode Pickup;
+	public KeyCode Search;
+	[Header("Movement")]
+	public KeyCode Up;
+	public KeyCode Left;
+	public KeyCode Down;
+	public KeyCode Right;
+	[Space]
+	public KeyCode altRight;
+	public KeyCode altUp;
+	public KeyCode altLeft;
+	public KeyCode altDown;
+}
+
 [RequireComponent (typeof (Rigidbody2D))]
 [RequireComponent (typeof (Animator))]
 public class PlayerController : MonoBehaviour {
@@ -13,10 +30,26 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody2D rigidBody;
 	// Animator attached to the player
 	Animator animator;
+
+	public PlayerID playerID = PlayerID.One;
+	public Axes axes;
+	string configName;
+	[Space]
 	// Amount of pixels moved by rigidbody.MoveDirection in current direction
 	public int speed = 1;
 
 	void Awake () {
+		configName = name + "_config";
+		InputManager.CreateInputConfiguration (configName);
+		InputManager.CreateButton (configName, "Right", axes.Right, axes.altRight);
+		InputManager.CreateButton (configName, "Up", axes.Up, axes.altUp);
+		InputManager.CreateButton (configName, "Left", axes.Left, axes.altLeft);
+		InputManager.CreateButton (configName, "Down", axes.Down, axes.altDown);
+		InputManager.CreateButton (configName, "Fire", axes.Fire);
+		InputManager.CreateButton (configName, "Pickup", axes.Pickup);
+		InputManager.CreateButton (configName, "Search", axes.Search);
+		InputManager.SetInputConfiguration (configName, playerID);
+
 		direction = new LinkedList<int> ();
 		direction.AddLast (-1);
 
